@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Text Summarizer</title>
+        <style>
+            .centeralign {
+                text-align: center;
+            }
+            .centeralign textarea {
+                width: 40%;
+                height: 30%;
+                border-radius: 0.65em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="centeralign">
+            <h1>Text Summarizer</h1>
+            <textarea id="para">
+                Enter paragraph
+            </textarea>
+            <br><br>
+            <button id="generate">Generate summary</button>
+            <br><br>
+            <div class="summary">
+                <p id="summary"></p>
+            </div>
+        </div>
+
+        <script>
+            var button = document.getElementById("generate")
+            button.addEventListener('click', async () => {
+                console.log("Generating summary...");
+                const response = await fetch('/summary', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({para: document.getElementById("para").value}),
+                    // body: `para=${document.getElementById("para").value}`
+                });
+                const {summary} = await response.json();
+                document.getElementById("summary").innerText = summary;
+            })
+        </script>
+    </body>
+</html>
