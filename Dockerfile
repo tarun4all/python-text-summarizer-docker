@@ -38,6 +38,7 @@ FROM python:3
 COPY . /app
 WORKDIR /app
 RUN pip install -r requirements.txt
+# sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
 RUN pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
 ENTRYPOINT ["python"]
 CMD ["app.py"]
